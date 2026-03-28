@@ -8,7 +8,6 @@ import {
   Smartphone,
   AppWindow,
   FileCode,
-  Layers,
   Wifi,
   ShieldOff,
   BookOpen,
@@ -31,7 +30,6 @@ interface NavLink {
 const workspace: NavLink[] = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Overview" },
   { href: "/dashboard/capture", icon: Radio, label: "Capture" },
-  { href: "/dashboard/modes", icon: Layers, label: "App Modes" },
   { href: "/dashboard/har", icon: FileSearch, label: "HAR Inspector" },
   { href: "/dashboard/terminal", icon: TerminalSquare, label: "Terminal" },
 ];
@@ -175,6 +173,15 @@ export default function Sidebar() {
           >
             <BookOpen className="h-4 w-4" />
             Documentation
+          </a>
+          <a
+            href="https://github.com/pentium-solver/sniff/tree/main/library"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium text-text-secondary hover:text-foreground hover:bg-bg-elevated no-underline transition-all duration-150"
+          >
+            <FileCode className="h-4 w-4" />
+            Script Library
           </a>
           <a
             href="https://x-lock.cloud"

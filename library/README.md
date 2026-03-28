@@ -33,6 +33,12 @@ Targeted bypass scripts for apps with custom protections. These handle app-speci
 | `linkedin_proxy_trace.js` | LinkedIn | Proxy routing trace |
 | `linkedin_ssl_trace.js` | LinkedIn | SSL handshake trace |
 
+## Community Scripts
+
+Scripts contributed by the community. Submit a PR to add yours.
+
+See [`community/`](community/) — empty for now, be the first to contribute!
+
 ## Usage
 
 Copy a script to your device and attach with Frida:
