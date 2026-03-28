@@ -3,7 +3,7 @@ services:
     build:
       context: ./site
     ports:
-      - "3100:3000"
+      - "127.0.0.1:3100:3000"
     networks:
       - pentium
     restart: unless-stopped
