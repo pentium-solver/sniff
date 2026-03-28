@@ -43,8 +43,10 @@ export default function ConnectPage() {
   const router = useRouter();
   const [url, setUrl] = useState("http://localhost:9090");
   const [status, setStatus] = useState<Status>("idle");
+  const [origin, setOrigin] = useState("");
 
   useEffect(() => {
+    setOrigin(window.location.origin);
     if (isConfigured()) {
       setUrl(getBackendUrl());
     }
@@ -197,7 +199,7 @@ export default function ConnectPage() {
                 Or install via terminal:
               </p>
               <div className="rounded-lg bg-bg-tertiary border border-border px-3 py-2 font-mono text-xs text-text-secondary select-all mt-1">
-                curl -fsSL https://sniff.cloud/install.sh | bash
+                {`curl -fsSL ${origin}/install.sh | bash`}
               </div>
             </div>
             <p>
