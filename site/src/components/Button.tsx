@@ -19,17 +19,17 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   const classes = clsx(
-    "inline-flex items-center justify-center rounded-full font-medium transition-all duration-200 cursor-pointer",
+    "inline-flex items-center justify-center rounded-xl transition-all duration-200 cursor-pointer",
     {
-      "bg-accent text-white hover:bg-accent-light shadow-lg shadow-accent/25":
+      "bg-accent text-white hover:bg-accent-light font-bold":
         variant === "primary",
-      "border border-border text-text-secondary hover:border-border-light hover:text-foreground":
+      "border border-border text-text-secondary hover:border-border-light hover:text-foreground font-medium":
         variant === "secondary",
     },
     {
-      "px-4 py-1.5 text-sm": size === "sm",
-      "px-6 py-2.5 text-sm": size === "md",
-      "px-8 py-3.5 text-base": size === "lg",
+      "px-4 py-2 text-xs": size === "sm",
+      "px-6 py-3 text-sm": size === "md",
+      "px-8 py-3.5 text-sm": size === "lg",
     },
     className
   );

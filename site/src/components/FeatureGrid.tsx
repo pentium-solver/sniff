@@ -5,7 +5,7 @@ export default function FeatureGrid() {
     <section id="features" className="border-t border-border">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
             Everything you need to{" "}
             <span className="gradient-text">intercept traffic</span>
           </h2>
@@ -22,12 +22,12 @@ export default function FeatureGrid() {
             return (
               <div
                 key={feature.title}
-                className="group rounded-xl border border-border bg-bg-secondary p-6 transition-all duration-200 hover:border-accent/30 hover:bg-bg-tertiary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/5"
+                className="group rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:border-accent/15 hover:bg-bg-tertiary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/5"
               >
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent-dim">
                   <Icon className="h-5 w-5 text-accent-light" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold">{feature.title}</h3>
+                <h3 className="mb-2 text-lg font-bold">{feature.title}</h3>
                 <p className="text-sm leading-relaxed text-text-secondary">
                   {feature.description}
                 </p>

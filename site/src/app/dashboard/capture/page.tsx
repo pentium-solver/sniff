@@ -274,7 +274,7 @@ function CapturePage() {
                 setResourceFilter(resourceFilter === type ? "All" : type)
               }
               className={clsx(
-                "text-[10px] font-medium rounded-md px-1.5 py-0.5 transition-colors cursor-pointer",
+                "text-[10px] font-medium rounded-lg px-1.5 py-0.5 transition-colors cursor-pointer",
                 resourceFilter === type
                   ? "bg-accent/15 text-accent-bright border border-accent/20"
                   : typeCounts[type] > 0

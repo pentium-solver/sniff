@@ -52,7 +52,7 @@ function SidebarSection({
 }) {
   return (
     <div className="px-3 pt-4 pb-1">
-      <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted px-2.5 mb-1.5">
+      <div className="text-[10px] font-mono font-medium uppercase tracking-widest text-text-muted px-2.5 mb-1.5">
         {title}
       </div>
       <nav className="space-y-0.5">{children}</nav>
@@ -165,7 +165,7 @@ export default function Sidebar() {
 
       {/* Links */}
       <div className="px-3 pt-3 pb-3 border-t border-border">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-text-muted px-2.5 mb-1.5">
+        <div className="text-[10px] font-mono font-medium uppercase tracking-widest text-text-muted px-2.5 mb-1.5">
           Links
         </div>
         <nav className="space-y-0.5">

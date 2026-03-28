@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@font-face { font-family: 'Anthropic Sans'; src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/69971a00a3295036497e1a28_AnthropicSans-Roman-Web.woff2') format('woff2'); font-weight: 300 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Anthropic Sans'; src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/69971a016067bf14b9b8f48d_AnthropicSans-Italic-Web.woff2') format('woff2'); font-weight: 300 800; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Anthropic Mono'; src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/69971a2e55d24d61bc045b1a_AnthropicMono-Roman-Web.woff2') format('woff2'); font-weight: 300 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Anthropic Mono'; src: url('https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/69971a2eb93743112c30fe9c_AnthropicMono-Italic-Web.woff2') format('woff2'); font-weight: 300 800; font-style: italic; font-display: swap; }
+
 :root {
   /* x-lock unified background system */
   --background: #050505;
@@ -65,8 +70,8 @@
   --color-card: var(--card-bg);
   --color-card-border: var(--card-border);
   --color-card-hover: var(--card-hover);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains);
+  --font-sans: 'Anthropic Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Anthropic Mono', 'SF Mono', 'Cascadia Code', monospace;
 }
 
 body {

@@ -22,7 +22,7 @@ import { useAppState } from "@/lib/store";
 
 function KeyBadge({ k }: { k: string }) {
   return (
-    <kbd className="inline-flex items-center justify-center rounded-md border border-accent/20 bg-accent/10 w-6 h-6 font-mono text-[11px] font-semibold text-accent-bright">
+    <kbd className="inline-flex items-center justify-center rounded-lg border border-accent/20 bg-accent/10 w-6 h-6 font-mono text-[11px] font-semibold text-accent-bright">
       {k}
     </kbd>
   );
@@ -42,11 +42,11 @@ function StatCard({
   accent?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-card-border bg-card p-5 relative overflow-hidden group hover:border-border-light transition-colors">
+    <div className="rounded-2xl border border-card-border bg-card p-5 relative overflow-hidden group hover:border-accent/15 transition-colors">
       {/* Subtle glow on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       <div className="relative">
-        <div className="flex items-center gap-2 text-text-muted text-xs font-medium mb-3">
+        <div className="flex items-center gap-2 text-text-muted text-[11px] uppercase tracking-wider font-medium mb-3">
           <Icon className="h-4 w-4" />
           {label}
         </div>

@@ -50,7 +50,7 @@ export default function SettingsPage() {
       <div className="max-w-3xl mx-auto space-y-5">
         {/* Header */}
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Settings</h2>
+          <h2 className="text-2xl font-extrabold tracking-tight text-foreground">Settings</h2>
           <p className="text-sm text-text-muted mt-0.5">
             Configure capture parameters, Frida settings, and export options
           </p>

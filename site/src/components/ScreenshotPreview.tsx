@@ -25,7 +25,7 @@ export default function ScreenshotPreview() {
               <span className="font-mono text-sm text-foreground">sniff!</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 rounded-full bg-good/15 px-2 py-0.5 text-xs text-good">
+              <span className="inline-flex items-center gap-1 rounded-lg bg-good/15 px-2 py-0.5 text-xs text-good">
                 <span className="h-1.5 w-1.5 rounded-full bg-good" />
                 Capturing
               </span>

@@ -138,7 +138,7 @@ function H2({
   return (
     <h2
       id={id}
-      className="text-xl font-bold text-foreground mt-16 mb-4 scroll-mt-24 flex items-center gap-2"
+      className="text-2xl font-extrabold tracking-tight text-foreground mt-16 mb-4 scroll-mt-24 flex items-center gap-2"
     >
       {children}
     </h2>
@@ -155,7 +155,7 @@ function H3({
   return (
     <h3
       id={id}
-      className="text-base font-semibold text-foreground mt-10 mb-3 scroll-mt-24"
+      className="text-base font-bold text-foreground mt-10 mb-3 scroll-mt-24"
     >
       {children}
     </h3>
@@ -185,7 +185,7 @@ function Table({
             {headers.map((h) => (
               <th
                 key={h}
-                className="px-4 py-2.5 text-left text-[11px] font-semibold text-text-muted uppercase tracking-wider"
+                className="px-4 py-2.5 text-left text-[11px] font-medium text-text-muted uppercase tracking-wider"
               >
                 {h}
               </th>
@@ -233,7 +233,7 @@ function Badge({ children, color = "accent" }: { children: string; color?: strin
   };
   return (
     <span
-      className={`inline-block rounded-md border px-2 py-0.5 text-[10px] font-bold tracking-wide whitespace-nowrap ${colors[color] || colors.muted}`}
+      className={`inline-block rounded-lg border px-2 py-0.5 text-[10px] font-bold tracking-wide whitespace-nowrap ${colors[color] || colors.muted}`}
     >
       {children}
     </span>
@@ -355,7 +355,7 @@ export default function DocsPage() {
                   Last updated: March 2025
                 </span>
               </div>
-              <h1 className="text-3xl font-bold text-foreground mb-3">
+              <h1 className="text-3xl font-extrabold tracking-tight text-foreground mb-3">
                 sniff! Documentation
               </h1>
               <p className="text-base text-text-secondary leading-relaxed max-w-2xl">

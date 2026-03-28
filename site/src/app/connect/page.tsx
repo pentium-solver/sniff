@@ -67,7 +67,7 @@ export default function ConnectPage() {
         {/* Header */}
         <div className="flex flex-col items-center gap-5">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground">
+            <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
               Connect to{" "}
               <span className="text-foreground">sniff</span>
               <span className="text-accent-bright">!</span>
@@ -95,7 +95,7 @@ export default function ConnectPage() {
                   setUrl(e.target.value);
                   setStatus("idle");
                 }}
-                className="w-full rounded-xl border border-card-border bg-card pl-10 pr-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent placeholder:text-text-muted font-mono"
+                className="w-full rounded-lg border border-card-border bg-card pl-10 pr-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent placeholder:text-text-muted font-mono"
               />
             </div>
           </div>
@@ -126,7 +126,7 @@ export default function ConnectPage() {
           <button
             type="submit"
             disabled={status === "checking" || status === "connected"}
-            className="w-full flex items-center justify-center gap-2 rounded-xl bg-accent py-3 text-sm font-semibold text-white hover:bg-accent-light transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 rounded-xl bg-accent py-3 text-sm font-bold text-white hover:bg-accent-light transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {status === "checking" ? (
               <>
