@@ -1,0 +1,13 @@
+services:
+  sniff-site:
+    build:
+      context: ./site
+    expose: ["3000"]
+    networks:
+      - pentium
+    restart: unless-stopped
+
+networks:
+  pentium:
+    external: true
+    name: pentium_default

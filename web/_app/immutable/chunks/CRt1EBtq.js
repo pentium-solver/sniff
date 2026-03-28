@@ -1,0 +1,1 @@
+import{s as a,a as n,f as d}from"./B9XwDWPu.js";import{c as s,r as m,t as p}from"./BsDp2shX.js";var c=d('<kbd class="inline-block rounded border border-border bg-panel-2 px-2 py-0.5 font-mono text-[11px] font-medium text-accent min-w-[24px] text-center"> </kbd>');function b(t,r){var e=c(),o=s(e,!0);m(e),p(()=>a(o,r.key)),n(t,e)}export{b as K};

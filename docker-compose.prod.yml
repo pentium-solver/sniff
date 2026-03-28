@@ -1,0 +1,3 @@
+services:
+  sniff-site:
+    image: ghcr.io/sniff-cloud/sniff-site:latest

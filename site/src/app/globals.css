@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+:root {
+  /* x-lock unified background system */
+  --background: #050505;
+  --foreground: #f5f5f5;
+  --bg-secondary: #0a0a0c;
+  --bg-tertiary: #111113;
+  --bg-elevated: #141416;
+  --sidebar-bg: #0c0c0e;
+  --card-bg: #0c0c0e;
+  --card-hover: #141416;
+
+  /* x-lock unified borders */
+  --border-color: #1e1e22;
+  --border-light: #2a2a30;
+  --card-border: #1e1e22;
+
+  /* x-lock text system */
+  --text-secondary: #8b8b96;
+  --text-muted: #55555e;
+
+  /* Brand: x-lock purple (chrome, brand elements) */
+  --brand: #a855f7;
+  --brand-light: #c084fc;
+  --brand-dark: #9333ea;
+  --brand-dim: rgba(168, 85, 247, 0.10);
+  --brand-glow: rgba(168, 85, 247, 0.15);
+
+  /* Product: Sniff blue (functional UI, data, actions) */
+  --accent: #3b6ff6;
+  --accent-light: #5e8ffa;
+  --accent-bright: #6ea0ff;
+  --accent-dim: rgba(59, 111, 246, 0.10);
+
+  /* Status */
+  --good: #22c55e;
+  --warn: #eab308;
+  --bad: #ef4444;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-border: var(--border-color);
+  --color-border-light: var(--border-light);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-dim: var(--brand-dim);
+  --color-brand-glow: var(--brand-glow);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-dim: var(--accent-dim);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --color-sidebar: var(--sidebar-bg);
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-card-hover: var(--card-hover);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Subtle top glow for pages */
+.bg-glow {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168, 85, 247, 0.04) 0%, transparent 60%),
+    var(--background);
+}
+
+/* Brand gradient text (purple) */
+.gradient-text-brand {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Product gradient text (blue) */
+.gradient-text {
+  background: linear-gradient(135deg, #5e8ffa 0%, #3b6ff6 50%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.float-animation { animation: float 6s ease-in-out infinite; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* x-lock scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e1e22; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2a30; }
