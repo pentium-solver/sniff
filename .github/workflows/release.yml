@@ -25,6 +25,12 @@ jobs:
           - os: macos-latest
             goos: darwin
             goarch: arm64
+          - os: windows-latest
+            goos: windows
+            goarch: amd64
+          - os: windows-latest
+            goos: windows
+            goarch: arm64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -45,13 +51,16 @@ jobs:
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
+        shell: bash
         run: |
-          go build -ldflags="-s -w" -o sniff-${{ matrix.goos }}-${{ matrix.goarch }} .
+          EXT=""
+          if [ "${{ matrix.goos }}" = "windows" ]; then EXT=".exe"; fi
+          go build -ldflags="-s -w" -o sniff-${{ matrix.goos }}-${{ matrix.goarch }}${EXT} .
 
       - uses: actions/upload-artifact@v4
         with:
           name: sniff-${{ matrix.goos }}-${{ matrix.goarch }}
-          path: sniff-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: sniff-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
 
   release:
     needs: build
