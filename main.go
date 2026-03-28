@@ -3566,6 +3566,27 @@ func sleepOrStop(stopCh chan struct{}, d time.Duration) bool {
 
 // ── Main ─────────────────────────────────────────────────────────────────────
 
+func firstLaunchPrompt() string {
+	fmt.Println()
+	fmt.Println("  \033[1msniff!\033[0m — Android HTTPS interception tool")
+	fmt.Println()
+	fmt.Println("  Choose your interface:")
+	fmt.Println()
+	fmt.Println("    \033[1;34m1)\033[0m \033[1mWeb\033[0m  — Browser dashboard at localhost:9090 \033[2m(recommended)\033[0m")
+	fmt.Println("    \033[1;34m2)\033[0m \033[1mTUI\033[0m  — Terminal interface")
+	fmt.Println()
+	fmt.Print("  \033[2mChoice [1]:\033[0m ")
+
+	reader := bufio.NewReader(os.Stdin)
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimSpace(input)
+
+	if input == "2" {
+		return "tui"
+	}
+	return "web"
+}
+
 func main() {
 	var pkg string
 	webFlag := false
@@ -3578,10 +3599,24 @@ func main() {
 	}
 
 	initBaseDir()
+
+	// First launch: ask user which mode they want
+	firstLaunch := false
+	if _, err := os.Stat(settingsPath()); os.IsNotExist(err) {
+		firstLaunch = true
+	}
+
 	s := loadSettings()
 	if pkg != "" {
 		s.Package = pkg
 		s.Save()
+	}
+
+	if firstLaunch && !webFlag {
+		mode := firstLaunchPrompt()
+		s.UIMode = mode
+		s.Save()
+		fmt.Println()
 	}
 
 	if s.UIMode == "web" || webFlag {
