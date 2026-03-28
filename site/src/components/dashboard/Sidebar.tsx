@@ -191,7 +191,7 @@ export default function Sidebar() {
         </div>
         <nav className="space-y-0.5">
           <a
-            href="#"
+            href="/docs"
             className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium text-text-secondary hover:text-foreground hover:bg-bg-elevated no-underline transition-all duration-150"
           >
             <BookOpen className="h-4 w-4" />

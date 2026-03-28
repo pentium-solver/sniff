@@ -20,19 +20,17 @@ const footerLinks = {
   Product: [
     { label: "Features", href: "#features" },
     { label: "Modules", href: "#modules" },
-    { label: "Changelog", href: "#" },
-    { label: "Download", href: "#" },
+    { label: "Changelog", href: "https://github.com/pentium-solver/sniff/releases" },
+    { label: "Download", href: "/connect" },
   ],
   Resources: [
-    { label: "Documentation", href: "#" },
-    { label: "Getting Started", href: "#" },
-    { label: "Frida Scripts", href: "#" },
-    { label: "API Reference", href: "#" },
+    { label: "Documentation", href: "/docs" },
+    { label: "Getting Started", href: "/docs#getting-started" },
+    { label: "Frida Scripts", href: "/docs#frida-scripts" },
+    { label: "API Reference", href: "/docs#api-reference" },
   ],
   Community: [
-    { label: "GitHub", href: "#" },
-    { label: "Telegram", href: "#" },
-    { label: "Discord", href: "#" },
+    { label: "GitHub", href: "https://github.com/pentium-solver/sniff" },
   ],
 };
 

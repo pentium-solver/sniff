@@ -43,7 +43,7 @@ export default function Hero() {
               <Button href="/connect" size="lg">
                 Get started now
               </Button>
-              <Button href="#" variant="secondary" size="lg">
+              <Button href="https://github.com/pentium-solver/sniff" variant="secondary" size="lg">
                 View on GitHub
               </Button>
             </div>

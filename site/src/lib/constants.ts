@@ -85,7 +85,7 @@ export const navItems: NavItem[] = [
     ],
   },
   { label: "Docs", href: "/docs" },
-  { label: "Changelog", href: "#" },
+  { label: "Changelog", href: "https://github.com/pentium-solver/sniff/releases" },
 ];
 
 export const heroBullets = [
