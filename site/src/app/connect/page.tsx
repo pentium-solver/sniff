@@ -19,24 +19,6 @@ import {
   isConfigured,
 } from "@/lib/connection";
 
-function LockIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-      />
-    </svg>
-  );
-}
-
 type Status = "idle" | "checking" | "connected" | "failed";
 
 export default function ConnectPage() {
@@ -84,9 +66,6 @@ export default function ConnectPage() {
       <div className="relative w-full max-w-lg space-y-8">
         {/* Header */}
         <div className="flex flex-col items-center gap-5">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-card border border-card-border shadow-lg shadow-brand/5">
-            <LockIcon className="h-8 w-8 text-brand" />
-          </div>
           <div className="text-center">
             <h1 className="text-2xl font-bold text-foreground">
               Connect to{" "}
@@ -220,7 +199,6 @@ export default function ConnectPage() {
 
         {/* Footer */}
         <div className="flex items-center justify-center gap-1.5 pt-2">
-          <LockIcon className="h-3 w-3 text-brand/50" />
           <span className="text-[11px] text-text-muted">
             Powered by{" "}
             <a
@@ -229,7 +207,7 @@ export default function ConnectPage() {
               rel="noopener noreferrer"
               className="text-brand/60 hover:text-brand transition-colors"
             >
-              x-lock
+              <span className="text-brand/60">x</span>-lock
             </a>
           </span>
         </div>

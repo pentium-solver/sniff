@@ -1,21 +1,3 @@
-function LockIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-      />
-    </svg>
-  );
-}
-
 const footerLinks = {
   Product: [
     { label: "Features", href: "#features" },
@@ -42,9 +24,6 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <a href="/" className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand to-brand-light shadow-md shadow-brand/20">
-                <LockIcon className="h-4 w-4 text-white" />
-              </div>
               <div className="flex items-center gap-1.5">
                 <span className="text-[15px] font-semibold"><span className="text-brand-light">x</span><span className="text-foreground">-lock</span></span>
                 <span className="text-text-muted text-[15px] font-light">/</span>
@@ -82,7 +61,6 @@ export default function Footer() {
         <div className="mt-12 border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-muted">
           <span>&copy; {new Date().getFullYear()} x-lock / sniff! All rights reserved.</span>
           <div className="flex items-center gap-1.5">
-            <LockIcon className="h-3 w-3 text-brand/50" />
             <span>
               Powered by{" "}
               <a href="https://x-lock.cloud" target="_blank" rel="noopener noreferrer" className="text-brand/60 hover:text-brand transition-colors">
