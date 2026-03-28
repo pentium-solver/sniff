@@ -24,12 +24,10 @@ if [ "${1:-}" = "uninstall" ] || [ "${1:-}" = "--uninstall" ]; then
   echo ""
 
   if [ -f "${INSTALL_DIR}/sniff" ]; then
-    if [ -w "${INSTALL_DIR}/sniff" ]; then
-      rm -f "${INSTALL_DIR}/sniff"
-    else
+    rm -f "${INSTALL_DIR}/sniff" 2>/dev/null || {
       echo -e "${DIM}Requires sudo${RESET}"
       sudo rm -f "${INSTALL_DIR}/sniff"
-    fi
+    }
     echo -e "  ${GREEN}✓${RESET} Removed ${INSTALL_DIR}/sniff"
   else
     echo -e "  ${DIM}Binary not found at ${INSTALL_DIR}/sniff${RESET}"
