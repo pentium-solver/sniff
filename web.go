@@ -174,13 +174,17 @@ func runWebServer(s settings) {
 	})
 
 	addr := fmt.Sprintf(":%d", s.WebPort)
-	fmt.Printf("sniff! web UI: http://localhost%s\n", addr)
+	fmt.Printf("\n")
+	fmt.Printf("  \033[1msniff!\033[0m backend running on http://localhost%s\n", addr)
+	fmt.Printf("  \033[2mOpen the dashboard to connect:\033[0m\n")
+	fmt.Printf("  \033[34mhttps://sniff.cloud/connect\033[0m\n")
+	fmt.Printf("\n")
 
 	// Auto-open browser (skip if SNIFF_NO_OPEN is set, e.g. dev mode)
 	if os.Getenv("SNIFF_NO_OPEN") == "" {
 		go func() {
 			time.Sleep(500 * time.Millisecond)
-			exec.Command("open", fmt.Sprintf("http://localhost%s", addr)).Run()
+			exec.Command("open", "https://sniff.cloud/connect").Run()
 		}()
 	}
 
