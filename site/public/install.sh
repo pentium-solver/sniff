@@ -17,6 +17,30 @@ echo -e "${BOLD}sniff!${RESET} — Android HTTPS interception tool"
 echo -e "${DIM}https://github.com/${REPO}${RESET}"
 echo ""
 
+# ── Uninstall ────────────────────────────────────────────────
+
+if [ "${1:-}" = "uninstall" ] || [ "${1:-}" = "--uninstall" ]; then
+  echo -e "${BOLD}Uninstalling sniff!${RESET}"
+  echo ""
+
+  if [ -f "${INSTALL_DIR}/sniff" ]; then
+    if [ -w "${INSTALL_DIR}/sniff" ]; then
+      rm -f "${INSTALL_DIR}/sniff"
+    else
+      echo -e "${DIM}Requires sudo${RESET}"
+      sudo rm -f "${INSTALL_DIR}/sniff"
+    fi
+    echo -e "  ${GREEN}✓${RESET} Removed ${INSTALL_DIR}/sniff"
+  else
+    echo -e "  ${DIM}Binary not found at ${INSTALL_DIR}/sniff${RESET}"
+  fi
+
+  echo ""
+  echo -e "${GREEN}sniff! uninstalled.${RESET}"
+  echo ""
+  exit 0
+fi
+
 # ── Helpers ──────────────────────────────────────────────────
 
 ask() {
