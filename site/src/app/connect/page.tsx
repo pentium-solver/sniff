@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   Loader2,
   RotateCw,
+  Download,
 } from "lucide-react";
 import {
   getBackendUrl,
@@ -176,25 +177,41 @@ export default function ConnectPage() {
             <Terminal className="h-4 w-4 text-accent" />
             Quick Start
           </div>
-          <div className="space-y-2 text-sm text-text-secondary">
-            <p>
-              1. Install the sniff! agent on your machine:
-            </p>
-            <div className="rounded-lg bg-bg-tertiary border border-border px-3 py-2 font-mono text-xs text-text-secondary select-all">
-              curl -fsSL https://sniff.sh/install | bash
+          <div className="space-y-2.5 text-sm text-text-secondary">
+            <div>
+              <p className="mb-1.5">
+                1. Download and install the sniff! backend for your platform:
+              </p>
+              <div className="flex gap-2">
+                <a
+                  href="https://github.com/pentium-solver/sniff/releases/latest"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 rounded-lg bg-bg-tertiary border border-border px-3 py-2 text-xs font-medium text-text-secondary hover:text-foreground hover:bg-bg-elevated transition-colors no-underline"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  Download
+                </a>
+              </div>
+              <p className="mt-1.5 text-xs text-text-muted">
+                Or install via terminal:
+              </p>
+              <div className="rounded-lg bg-bg-tertiary border border-border px-3 py-2 font-mono text-xs text-text-secondary select-all mt-1">
+                curl -fsSL https://sniff.cloud/install.sh | bash
+              </div>
             </div>
             <p>
               2. Connect your Android device via USB with ADB debugging enabled.
             </p>
             <p>
-              3. Start the agent:
+              3. Start the backend:
             </p>
             <div className="rounded-lg bg-bg-tertiary border border-border px-3 py-2 font-mono text-xs text-text-secondary select-all">
               sniff
             </div>
             <p>
               4. Click <strong className="text-foreground">Connect</strong> above — the dashboard will appear once the
-              backend is detected.
+              backend is detected on port <span className="font-mono">9090</span>.
             </p>
           </div>
         </div>
