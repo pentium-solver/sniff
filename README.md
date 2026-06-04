@@ -1,112 +1,75 @@
-# sniff!
+# sniff! 🏎️
 
-Open source Android HTTPS interception and network traffic analysis tool by [x-lock](https://x-lock.cloud).
+**sniff!** is a professional-grade, full-stack network analysis and reverse engineering suite. Engineered for precision and modularity, it automates the full capture pipeline—hardware orchestration, SSL pinning bypass, real-time flow inspection, and deep cryptographic analysis.
 
-## Overview
+Developed with pride by [x-lock](https://x-lock.cloud).
 
-sniff! captures, decrypts, and inspects HTTPS traffic from Android applications in real time. It combines mitmproxy for traffic interception with Frida for runtime SSL pinning bypass, controlled through a web dashboard.
+---
 
-## Architecture
+## 🏗️ Architecture
 
-```
-┌─────────────────────────────────────────────────┐
-│  Hosted Site (site/)          sniff.sh           │
-│  Next.js static export        nginx / CDN       │
-└──────────────────────┬──────────────────────────┘
-                       │ browser connects to localhost
-┌──────────────────────▼──────────────────────────┐
-│  Local Backend (Go)           :9090              │
-│  REST API + SSE streaming                        │
-│  ┌──────────┐  ┌──────────┐  ┌──────────────┐  │
-│  │ mitmproxy│  │  Frida   │  │   ADB        │  │
-│  └──────────┘  └──────────┘  └──────────────┘  │
-└──────────────────────┬──────────────────────────┘
-                       │ USB / TCP
-┌──────────────────────▼──────────────────────────┐
-│  Android Device                                  │
-│  Target application with SSL pinning             │
-└─────────────────────────────────────────────────┘
-```
+sniff! follows a **Modular Adapter Architecture**, decoupling the capture engine from platform-specific hardware.
 
-**Local backend** (Go) — runs on the user's machine, manages ADB, mitmproxy, and Frida processes. Exposes a REST API on `:9090` with SSE for real-time flow and log streaming.
+*   **The Engine:** A thread-safe Go orchestrator that manages multiple platform adapters (Android, iOS, Desktop).
+*   **The Intelligence:** Automated OpenAPI generation, cryptographic signature reversal, and AI-powered context.
+*   **The Transmission:** A robust REST API with real-time SSE streaming.
+*   **The Cabin:** A high-end Next.js web dashboard designed for an IDE-like research experience.
 
-**Hosted site** (Next.js) — static export deployed to a domain. Connects to the local backend via the browser. No server-side logic; all communication is client-to-localhost.
+---
 
-**Svelte TUI** (legacy) — original embedded frontend in `frontend/`, compiled into the Go binary via `web_embed.go`.
+## 🚀 Quick Start
 
-## Prerequisites
-
-- Go 1.25+
-- Bun
-- Android device with USB debugging enabled
-- mitmproxy (`mitmdump`)
-- Frida (`frida-server` on device)
-- ADB
-
-## Quick Start
+Ensure you have **Go 1.25+**, **mitmproxy**, and **Frida** installed on your host machine.
 
 ```bash
-# Build
+# Build the unified binary
 make build
 
-# Run (opens browser automatically)
-./sniff
+# Launch (automatically opens the dashboard)
+./sniff --debug
+```
 
-# Or run in dev mode (Go backend + Next.js site with hot reload)
+### Development Mode
+```bash
+# Start backend and frontend with hot reload
 make dev
 ```
 
-## Project Structure
+---
+
+## 🛠️ Project Structure
 
 ```
 sniff/
-├── cmd/sniff/           # Go application entry point
-├── internal/            # Core backend modules (adb, capture, api, etc.)
-├── pkg/                 # Reusable libraries
-├── legacy/              # Archived legacy Go code
-├── site/                # Next.js hosted dashboard + marketing site
-│   ├── src/app/         # Pages: landing, connect, dashboard, docs
-│   ├── src/components/  # React components
-│   └── src/lib/         # API client, state, types, connection config
-├── Makefile             # Build targets
-└── .github/workflows/   # CI/CD: site deploy + binary releases
+├── cmd/sniff/           # The Ignition: Application entry point
+├── internal/            # The Drivetrain: Core backend modules
+│   ├── adb/             # Android device communication
+│   ├── capture/         # Multi-platform capture engine
+│   ├── analysis/        # Cryptographic & schema intelligence
+│   ├── api/             # REST & SSE transmission
+│   └── decompile/       # JADX background management
+├── pkg/                 # Universal libraries (HAR, etc.)
+├── site/                # The Cabin: Next.js Dashboard
+├── legacy/              # Archived monolithic artifacts
+└── Makefile             # Build & Test automation
 ```
 
-## API
+---
 
-All endpoints are prefixed with `/api/` on the local backend (default `http://localhost:9090`).
+## 🤝 Contributing
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/health` | Health check |
-| GET | `/api/state` | Current capture state and settings |
-| GET | `/api/flows` | All captured flows |
-| GET | `/api/events` | SSE stream (flow, log, state, clear events) |
-| GET | `/api/device` | Device info and connection status |
-| GET | `/api/apps` | Installed applications |
-| GET | `/api/scripts` | Available Frida scripts |
-| POST | `/api/capture/start` | Start capture session |
-| POST | `/api/capture/stop` | Stop capture session |
-| POST | `/api/capture/clear` | Clear captured flows |
-| POST | `/api/export` | Export flows to file |
-| PUT | `/api/settings` | Update settings |
+We maintain strict engineering standards to ensure **Absolute Elegance** in our codebase. No global state, no raw shell calls in the engine, and mandatory smoke tests for all new modules.
 
-## Deployment
+See [CONTRIBUTING.md](CONTRIBUTING.md) for our full technical standards and contribution path.
 
-The **site** is deployed automatically via GitHub Actions on push to `main` (changes in `site/`). It builds a Docker image and deploys to a VPS.
+---
 
-**Binary releases** are created automatically when a version tag is pushed (`v*`). Builds are produced for linux/darwin on amd64/arm64.
+## ❤️ Support & Partnerships
 
-```bash
-# Tag a release
-git tag v1.0.0
-git push origin v1.0.0
-```
+We are looking for partners and creators who share our vision for professionalizing the reverse engineering space. We offer Pro-tier access, custom branding, and white-label integration models.
 
-## Environment
+See [SUPPORT.md](SUPPORT.md) for our vision and partnership details.
 
-See [.env.example](.env.example) for available configuration.
+---
 
-## License
-
-MIT
+*"Precision in every packet. Elegance in every line."*
