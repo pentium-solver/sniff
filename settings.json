@@ -1,0 +1,13 @@
+{
+  "package": "com.marriott.mrt",
+  "port": 8080,
+  "attach_delay": 8,
+  "ignore_hosts": ".*perimeterx\\.net|.*perfdrive\\.com|.*px-cdn\\.net|.*px-cloud\\.net",
+  "frida_script_id": "custom_marriott_bypass",
+  "captures_dir": "/Users/orange/coding/ios-re/captures",
+  "frida_server": "/data/local/tmp/fs-helper-64",
+  "host_ip": "",
+  "export_format": "json",
+  "ui_mode": "tui",
+  "web_port": 9090
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import type { Flow, LogEntry } from "./types";
+import type { Flow, LogEntry, CapturedFingerprint } from "./types";
 
 export interface AppState {
   flows: Flow[];
@@ -11,6 +11,8 @@ export interface AppState {
   captureName: string;
   pkg: string;
   connected: boolean;
+  fingerprints: CapturedFingerprint[];
+  fingerprintCapturing: boolean;
   setFlows: (fn: (prev: Flow[]) => Flow[]) => void;
   setLogs: (fn: (prev: LogEntry[]) => LogEntry[]) => void;
   setCapturing: (v: boolean) => void;
@@ -18,6 +20,8 @@ export interface AppState {
   setCaptureName: (v: string) => void;
   setPkg: (v: string) => void;
   setConnected: (v: boolean) => void;
+  setFingerprints: (fn: (prev: CapturedFingerprint[]) => CapturedFingerprint[]) => void;
+  setFingerprintCapturing: (v: boolean) => void;
 }
 
 export const AppContext = createContext<AppState | null>(null);

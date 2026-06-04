@@ -13,6 +13,7 @@ export interface Flow {
   req_body: string | null;
   resp_body: string | null;
   _index?: number;
+  _id?: string; // client-side UUID stamped on arrival, used as annotation key
 }
 
 export interface LogEntry {
@@ -49,4 +50,20 @@ export interface DeviceInfo {
   Proxy: string;
   HostIP: string;
   Connected: boolean;
+  IsEmulator?: boolean;
+}
+
+export interface CapturedFingerprint {
+  id: string;
+  ts: number;
+  package: string;
+  sni: string;
+  dst_ip: string;
+  dst_port: string;
+  tls_version: string;
+  ja3: string;
+  ja4: string;
+  cipher_count: number;
+  ext_count: number;
+  utls_spec: string;
 }

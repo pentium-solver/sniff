@@ -1,25 +1,25 @@
-.PHONY: build dev clean frontend site
+.PHONY: build site dev clean test
 
-# Build the sniff binary (embeds Svelte frontend)
-build: frontend
-	go build -ldflags="-s -w" -o sniff .
+# Build the sniff binary
+build:
+	go build -ldflags="-s -w" -o sniff ./cmd/sniff
 
-# Build the Svelte frontend to web/
-frontend:
-	cd frontend && bun install && bun run build
-
-# Build the Next.js site
+# Build the Next.js site (Static Export to site/out)
 site:
 	cd site && bun install && bun run build
 
-# Run development environment (Go backend + Next.js site)
+# Run development environment
+# Backend on :9090, Frontend on :3000
 dev:
-	@echo "Starting backend on :9090 and site on :3000..."
-	@SNIFF_NO_OPEN=1 go run . --web &
+	@echo "Starting backend and frontend dev server..."
+	@go run ./cmd/sniff --debug &
 	@cd site && bun dev
+
+# Run all internal smoke tests
+test:
+	go test ./internal/...
 
 # Clean build artifacts
 clean:
-	rm -f sniff sniff-tui
-	rm -rf web/_app
+	rm -f sniff
 	rm -rf site/.next site/out

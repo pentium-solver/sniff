@@ -59,16 +59,15 @@ make dev
 ## Project Structure
 
 ```
-sniff-tui/
-├── main.go              # Go application entry point
-├── web.go               # Web server, API handlers, SSE
-├── web_embed.go         # Embeds Svelte frontend into binary
-├── frontend/            # Svelte TUI frontend (builds to web/)
+sniff/
+├── cmd/sniff/           # Go application entry point
+├── internal/            # Core backend modules (adb, capture, api, etc.)
+├── pkg/                 # Reusable libraries
+├── legacy/              # Archived legacy Go code
 ├── site/                # Next.js hosted dashboard + marketing site
 │   ├── src/app/         # Pages: landing, connect, dashboard, docs
 │   ├── src/components/  # React components
 │   └── src/lib/         # API client, state, types, connection config
-├── web/                 # Built Svelte output (embedded in binary)
 ├── Makefile             # Build targets
 └── .github/workflows/   # CI/CD: site deploy + binary releases
 ```

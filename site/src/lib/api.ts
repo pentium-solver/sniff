@@ -1,4 +1,4 @@
-import type { Flow, LogEntry } from "./types";
+import type { Flow, LogEntry, CapturedFingerprint } from "./types";
 import { getBackendUrl } from "./connection";
 
 function apiBase(): string {
@@ -99,10 +99,12 @@ export function formatBytes(b: number | null | undefined): string {
 export type SSECallbacks = {
   onFlow: (flow: Flow) => void;
   onLog: (entry: LogEntry) => void;
-  onState: (state: { capturing: boolean; captureMode: string; captureName: string }) => void;
+  onState: (state: { capturing: boolean; captureMode: string; captureName: string; fingerprintCapturing?: boolean }) => void;
   onClear: () => void;
   onConnect: () => void;
   onDisconnect: () => void;
+  onFingerprint?: (fp: CapturedFingerprint) => void;
+  onFingerprintState?: (state: { active: boolean }) => void;
 };
 
 export function connectSSE(callbacks: SSECallbacks): () => void {
@@ -141,6 +143,14 @@ export function connectSSE(callbacks: SSECallbacks): () => void {
 
     es.addEventListener("clear", () => {
       callbacks.onClear();
+    });
+
+    es.addEventListener("fingerprint", (e) => {
+      callbacks.onFingerprint?.(JSON.parse(e.data));
+    });
+
+    es.addEventListener("fingerprint_state", (e) => {
+      callbacks.onFingerprintState?.(JSON.parse(e.data));
     });
   }
 

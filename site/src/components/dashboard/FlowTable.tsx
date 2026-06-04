@@ -3,6 +3,12 @@
 import { useMemo, useState } from "react";
 import { formatBytes } from "@/lib/api";
 import type { Flow } from "@/lib/types";
+import { useAnnotationsAll } from "@/hooks/useAnnotation";
+import PinButton from "./PinButton";
+import TagList from "./TagList";
+import InlineLabel from "./InlineLabel";
+import { NoteIndicator } from "./NoteEditor";
+import { SignalWarning } from "./SignalsPanel";
 
 interface FlowTableProps {
   flows: Flow[];
@@ -30,42 +36,121 @@ function statusClass(s: number): string {
 }
 
 const cols = [
-  { key: "index", label: "#", w: "w-11" },
+  { key: "index", label: "#", w: "w-14" },
   { key: "status", label: "Status", w: "w-14" },
   { key: "method", label: "Method", w: "w-[72px]" },
-  { key: "host", label: "Host", w: "w-40" },
+  { key: "host", label: "Host", w: "w-44" },
   { key: "path", label: "Path", w: "" },
   { key: "resp_size", label: "Size", w: "w-16" },
 ];
 
-export default function FlowTable({
-  flows,
+function FlowRow({
+  flow,
+  idx,
   selected,
   onSelect,
-}: FlowTableProps) {
+}: {
+  flow: Flow & { _index: number };
+  idx: number;
+  selected: boolean;
+  onSelect: () => void;
+}) {
+  const id = flow._id ?? `flow_${flow._index}`;
+
+  return (
+    <tr
+      className={`cursor-pointer border-b border-border/30 transition-colors duration-75 hover:bg-accent/[.06] ${selected ? "bg-accent-dim" : ""}`}
+      onClick={onSelect}
+    >
+      {/* # + pin */}
+      <td className="px-2 py-1.5 text-text-muted w-14">
+        <div className="flex items-center gap-1">
+          <PinButton id={id} />
+          <span className="text-[11px] font-mono">{flow._index}</span>
+        </div>
+      </td>
+
+      {/* Status */}
+      <td className={`px-2 py-1.5 w-14 font-mono text-[11px] ${statusClass(flow.status)}`}>
+        {flow.status}
+      </td>
+
+      {/* Method */}
+      <td className="px-2 py-1.5 w-[72px]">
+        <span className={`inline-block rounded px-1.5 py-px text-[11px] font-semibold font-mono ${methodClass(flow.method)}`}>
+          {flow.method}
+        </span>
+      </td>
+
+      {/* Host with inline label, tags, note indicator */}
+      <td className="px-2 py-1.5 w-44">
+        <InlineLabel
+          id={id}
+          fallback={flow.host}
+          className="text-[11px] text-text-secondary truncate block max-w-[160px]"
+        />
+        <div className="flex items-center gap-1 mt-0.5 flex-wrap">
+          <TagList id={id} maxTags={3} />
+          <NoteIndicator id={id} />
+          <SignalWarning flow={flow} />
+        </div>
+      </td>
+
+      {/* Path */}
+      <td className="px-2 py-1.5 text-text-secondary truncate max-w-0 text-[11px]" title={flow.path}>
+        {flow.path}
+      </td>
+
+      {/* Size */}
+      <td className="px-2 py-1.5 w-16 text-text-secondary text-[11px]">
+        {formatBytes(flow.resp_size)}
+      </td>
+    </tr>
+  );
+}
+
+export default function FlowTable({ flows, selected, onSelect }: FlowTableProps) {
   const [sortCol, setSortCol] = useState<string | null>(null);
   const [sortAsc, setSortAsc] = useState(true);
+  const allAnns = useAnnotationsAll();
+
+  const withIndex = useMemo(
+    () => flows.map((f, i) => ({ ...f, _index: i + 1 })),
+    [flows]
+  );
 
   const sorted = useMemo(() => {
-    const arr = flows.map((f, i) => ({ ...f, _index: i + 1 }));
-    if (!sortCol) return arr;
+    if (!sortCol) return withIndex;
     const col = sortCol;
     const dir = sortAsc ? 1 : -1;
-    return [...arr].sort((a, b) => {
+    return [...withIndex].sort((a, b) => {
       const av = col === "index" ? a._index : (a as any)[col];
       const bv = col === "index" ? b._index : (b as any)[col];
       if (typeof av === "string") return dir * av.localeCompare(bv);
       return dir * ((av ?? 0) - (bv ?? 0));
     });
-  }, [flows, sortCol, sortAsc]);
+  }, [withIndex, sortCol, sortAsc]);
 
   function toggleSort(col: string) {
-    if (sortCol === col) {
-      setSortAsc(!sortAsc);
-    } else {
-      setSortCol(col);
-      setSortAsc(true);
-    }
+    if (sortCol === col) setSortAsc(!sortAsc);
+    else { setSortCol(col); setSortAsc(true); }
+  }
+
+  const pinned = sorted.filter((f) => allAnns[f._id ?? `flow_${f._index}`]?.pinned);
+  const unpinned = sorted.filter((f) => !allAnns[f._id ?? `flow_${f._index}`]?.pinned);
+
+  function renderRow(flow: Flow & { _index: number }, displayIdx: number) {
+    const id = flow._id ?? `flow_${flow._index}`;
+    const globalIdx = sorted.indexOf(flow);
+    return (
+      <FlowRow
+        key={flow._id ?? flow._index}
+        flow={flow}
+        idx={displayIdx}
+        selected={globalIdx === selected}
+        onSelect={() => onSelect(globalIdx)}
+      />
+    );
   }
 
   return (
@@ -80,52 +165,32 @@ export default function FlowTable({
                 onClick={() => toggleSort(col.key)}
               >
                 {col.label}
-                <span
-                  className={`ml-0.5 text-[10px] ${sortCol === col.key ? "opacity-100" : "opacity-40"}`}
-                >
-                  {sortCol === col.key ? (sortAsc ? "\u25B2" : "\u25BC") : "\u25B2"}
+                <span className={`ml-0.5 text-[10px] ${sortCol === col.key ? "opacity-100" : "opacity-40"}`}>
+                  {sortCol === col.key ? (sortAsc ? "▲" : "▼") : "▲"}
                 </span>
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {sorted.map((flow, idx) => (
-            <tr
-              key={flow._index}
-              className={`cursor-pointer border-b border-border/30 transition-colors duration-75 hover:bg-accent/[.06] ${idx === selected ? "bg-accent-dim" : ""}`}
-              onClick={() => onSelect(idx)}
-            >
-              <td className="px-2 py-1.5 text-text-muted w-11">
-                {flow._index}
-              </td>
-              <td className={`px-2 py-1.5 w-14 ${statusClass(flow.status)}`}>
-                {flow.status}
-              </td>
-              <td className="px-2 py-1.5 w-[72px]">
-                <span
-                  className={`inline-block rounded px-1.5 py-px text-[11px] font-semibold font-mono ${methodClass(flow.method)}`}
-                >
-                  {flow.method}
-                </span>
-              </td>
-              <td
-                className="px-2 py-1.5 w-40 text-text-secondary truncate"
-                title={flow.host}
-              >
-                {flow.host}
-              </td>
-              <td
-                className="px-2 py-1.5 text-text-secondary truncate max-w-0"
-                title={flow.path}
-              >
-                {flow.path}
-              </td>
-              <td className="px-2 py-1.5 w-16 text-text-secondary">
-                {formatBytes(flow.resp_size)}
-              </td>
-            </tr>
-          ))}
+          {pinned.length > 0 && (
+            <>
+              <tr>
+                <td colSpan={6} className="px-2 py-0.5 bg-bg-secondary/80 border-b border-border">
+                  <span className="text-[9px] font-mono font-semibold uppercase tracking-widest text-text-muted/60">Pinned</span>
+                </td>
+              </tr>
+              {pinned.map((f, i) => renderRow(f, i + 1))}
+              {unpinned.length > 0 && (
+                <tr>
+                  <td colSpan={6} className="px-2 py-0.5 bg-bg-secondary/80 border-b border-border">
+                    <span className="text-[9px] font-mono font-semibold uppercase tracking-widest text-text-muted/60">All</span>
+                  </td>
+                </tr>
+              )}
+            </>
+          )}
+          {unpinned.map((f, i) => renderRow(f, pinned.length + i + 1))}
         </tbody>
       </table>
     </div>

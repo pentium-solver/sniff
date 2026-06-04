@@ -16,6 +16,11 @@ import {
   ExternalLink,
   FileSearch,
   TerminalSquare,
+  Fingerprint,
+  BookmarkCheck,
+  ShieldAlert,
+  Map as MapIcon,
+  Code2,
 } from "lucide-react";
 import { useAppState } from "@/lib/store";
 import { clearBackendUrl } from "@/lib/connection";
@@ -30,6 +35,11 @@ interface NavLink {
 const workspace: NavLink[] = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Overview" },
   { href: "/dashboard/capture", icon: Radio, label: "Capture" },
+  { href: "/dashboard/fingerprints", icon: Fingerprint, label: "Fingerprints" },
+  { href: "/dashboard/profiles", icon: BookmarkCheck, label: "Profiles" },
+  { href: "/dashboard/secrets", icon: ShieldAlert, label: "Secrets" },
+  { href: "/dashboard/api-map", icon: MapIcon, label: "API Map" },
+  { href: "/dashboard/source", icon: Code2, label: "Source" },
   { href: "/dashboard/har", icon: FileSearch, label: "HAR Inspector" },
   { href: "/dashboard/terminal", icon: TerminalSquare, label: "Terminal" },
 ];
@@ -78,7 +88,7 @@ function NavItem({ item, active }: { item: NavLink; active: boolean }) {
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { flows, capturing } = useAppState();
+  const { flows, capturing, fingerprints, fingerprintCapturing } = useAppState();
 
   return (
     <aside className="w-[240px] shrink-0 border-r border-border bg-sidebar flex flex-col h-full">
@@ -100,6 +110,9 @@ export default function Sidebar() {
           </div>
         </Link>
       </div>
+
+      {/* ── Scrollable nav area ── */}
+      <div className="flex-1 overflow-y-auto min-h-0">
 
       {/* Statistics */}
       <SidebarSection title="Statistics">
@@ -127,6 +140,20 @@ export default function Sidebar() {
               )}
             >
               {capturing ? "Active" : "Idle"}
+            </span>
+          </div>
+          <div className="flex items-center justify-between px-3 py-2 rounded-xl text-[13px]">
+            <span className="flex items-center gap-2.5 text-text-secondary">
+              <Fingerprint className="h-4 w-4" />
+              Prints
+            </span>
+            <span className={clsx(
+              "text-[12px] font-mono font-semibold rounded-lg px-2 py-0.5",
+              fingerprintCapturing
+                ? "text-accent-bright bg-accent/10"
+                : "text-text-muted bg-bg-tertiary"
+            )}>
+              {fingerprints.length > 0 ? fingerprints.length : fingerprintCapturing ? "●" : "–"}
             </span>
           </div>
         </div>
@@ -159,10 +186,8 @@ export default function Sidebar() {
         ))}
       </SidebarSection>
 
-      <div className="flex-1" />
-
       {/* Links */}
-      <div className="px-3 pt-3 pb-3 border-t border-border">
+      <div className="px-3 pt-3 pb-3 border-t border-border mt-2">
         <div className="text-[10px] font-mono font-medium uppercase tracking-widest text-text-muted px-2.5 mb-1.5">
           Links
         </div>
@@ -195,8 +220,10 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* Footer */}
-      <div className="px-3 pb-4 flex gap-2">
+      </div>{/* end scrollable area */}
+
+      {/* Footer — always visible at bottom */}
+      <div className="px-3 pb-4 pt-2 shrink-0 border-t border-border">
         <button
           onClick={() => {
             clearBackendUrl();

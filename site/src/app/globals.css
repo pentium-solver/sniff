@@ -131,3 +131,17 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #1e1e22; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #2a2a30; }
+
+/* Decompile progress shimmer (indeterminate loading phase) */
+@keyframes shimmer {
+  0%   { transform: translateX(-200%); }
+  100% { transform: translateX(400%); }
+}
+
+/* Source viewer — syntax highlighting tokens */
+.syn-keyword    { color: #6ea0ff; font-weight: 600; }
+.syn-type       { color: #c084fc; }
+.syn-string     { color: #22c55e; }
+.syn-comment    { color: #55555e; font-style: italic; }
+.syn-annotation { color: #f97316; }
+.syn-number     { color: #eab308; }
